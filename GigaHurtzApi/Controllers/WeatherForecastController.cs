@@ -1,3 +1,4 @@
+using GigaHurtzApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GigaHurtzApi.Controllers;
@@ -13,9 +14,10 @@ public class WeatherForecastController : ControllerBase
 
     private readonly ILogger<WeatherForecastController> _logger;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, FirebaseService firebaseService)
     {
         _logger = logger;
+        firebaseService.ToString();
     }
 
     [HttpGet(Name = "GetWeatherForecast")]

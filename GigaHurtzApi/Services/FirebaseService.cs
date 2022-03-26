@@ -59,6 +59,14 @@ public class FirebaseService : IDbService
         return refugeeDict is null ? null : RefugeeFromDict(id, refugeeDict);
     }
 
+    public async Task<int?> GetUserRole(string id)
+    {
+        var userDict = await GetUserDocuemnt(id);
+        if (userDict is null) return null;
+        var role = Convert.ToInt32(userDict["role"]);
+        return userDict is null ? null : userDict["role"];
+    }
+
     /// <inheritdoc/>
     public async Task<string> UploadFile(string path, Stream fileStream, ContentType contentType)
     {

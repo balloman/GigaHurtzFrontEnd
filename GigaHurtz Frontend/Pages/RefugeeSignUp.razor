@@ -1,4 +1,5 @@
 @page "/rsignup"
+@inject NavigationManager NavigationManager
 
 <h1>Refugee Signup</h1>
 
@@ -59,5 +60,14 @@
     </div>
 
     <br>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" @onclick="GoToRPage" class="btn btn-primary">Submit</button>
 </form>
+
+@code {
+
+    private void GoToRPage()
+    {
+        NavigationManager.NavigateTo("rpage");
+    }
+
+}

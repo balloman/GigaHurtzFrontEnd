@@ -1,12 +1,21 @@
 ﻿using System.Net.Mime;
-using GigaHurtz_Common.Models;
-using Host = GigaHurtz_Common.Models.Host;
+using GigaHurtz.Common.Models;
+using Host = GigaHurtz.Common.Models.Host;
 
 namespace GigaHurtzApi.Services;
 
 public interface IDbService
 {
+    /// <summary>
+    /// Attempts to create a host
+    /// </summary>
+    /// <exception cref="DbException">Thrown if there is some issue adding the host</exception>
     public Task AddHost(Host host);
+
+    /// <summary>
+    /// Attempts to create a refugee
+    /// </summary>
+    /// <exception cref="DbException">Thrown if there is some issue adding the refugee</exception>
     public Task AddRefugee(Refugee refugee);
 
     /// <summary>

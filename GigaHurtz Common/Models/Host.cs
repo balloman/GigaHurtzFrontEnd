@@ -1,4 +1,4 @@
-﻿namespace GigaHurtz_Common.Models;
+﻿namespace GigaHurtz.Common.Models;
 
 public record Host(string Id, string Name, long AvailableRooms, long MaxTenants, string Address,
                    IEnumerable<string> Languages, bool Kids, bool Cooks, IEnumerable<string> GenderPref, string Phone,

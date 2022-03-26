@@ -2,10 +2,15 @@
 
     <PropertyGroup>
         <TargetFramework>net6.0</TargetFramework>
-        <RootNamespace>GigaHurtz_Common</RootNamespace>
+        <RootNamespace>GigaHurtz.Common</RootNamespace>
+        <AssemblyName>GigaHurtz.Common</AssemblyName>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <OutputType>Library</OutputType>
     </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MediaTypeMap" Version="2.1.0"/>
+    </ItemGroup>
 
 </Project>

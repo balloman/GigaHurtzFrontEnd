@@ -16,10 +16,6 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Folder Include="Models"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\GigaHurtz Common\GigaHurtz Common.csproj"/>
     </ItemGroup>
 

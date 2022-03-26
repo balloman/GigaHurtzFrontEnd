@@ -1,11 +1,11 @@
 ﻿using System.Collections.Immutable;
 using System.Net.Mime;
 using System.Text;
-using GigaHurtz_Common.Models;
+using GigaHurtz.Common.Models;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using Google.Cloud.Storage.V1;
-using Host = GigaHurtz_Common.Models.Host;
+using Host = GigaHurtz.Common.Models.Host;
 
 namespace GigaHurtzApi.Services;
 

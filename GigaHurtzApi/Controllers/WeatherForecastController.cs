@@ -25,7 +25,9 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
-        _firebase.GetHost("bMnCR69qgBbnd4axLBzd").Wait();
+        var data = _firebase.GetHost("bMnCR69qgBbnd4axLBzd").Result;
+        var refugee = _firebase.GetRefugee("Xdp1szwilIlkvtOVo50s").Result;
+        Console.WriteLine(data);
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

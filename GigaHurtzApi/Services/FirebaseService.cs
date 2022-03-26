@@ -41,33 +41,65 @@ public class FirebaseService : IDbService
 
     public async Task<Host?> GetHost(string id)
     {
-        var hostDocumentReference = UserCollection.Document(id);
-        var documentSnapshot = await hostDocumentReference.GetSnapshotAsync();
-        if (!documentSnapshot.Exists) return null;
-        var hostDict = documentSnapshot.ToDictionary();
-        return FromDict(hostDict);
+        var hostDict = await GetUserDocument(id);
+        return hostDict is null ? null : HostFromDict(id, hostDict);
     }
 
     public async Task<Refugee?> GetRefugee(string id)
     {
-        throw new NotImplementedException();
+        var refugeeDict = await GetUserDocument(id);
+        return refugeeDict is null ? null : RefugeeFromDict(id, refugeeDict);
     }
 
-    private Host FromDict(Dictionary<string, object> hostDict)
+    private async Task<Dictionary<string, object>?> GetUserDocument(string id)
     {
-        var role = (int) hostDict["role"];
+        var hostDocumentReference = UserCollection.Document(id);
+        var documentSnapshot = await hostDocumentReference.GetSnapshotAsync();
+        return !documentSnapshot.Exists ? null : documentSnapshot.ToDictionary();
+    }
+
+    private static Host HostFromDict(string hostId, IReadOnlyDictionary<string, object> hostDict)
+    {
+        var role = (long)hostDict["role"];
         if (role != 0)
         {
             throw new IDbService.DbException("This user is not a host!");
         }
 
-        var data = (KeyValuePair<string, Object>) hostDict["data"];
-        var host = new Host
-        {
-            Address = (string) data["address"],
-            AvailableRooms = (int) data["availableRooms"],
-            Cooks = (bool) data["cooks"],
-        };
+        var data = (Dictionary<string, object>)hostDict["data"];
+        var languages = ((List<object>)data["languages"]).Select(o => (string)o);
+        var genderPref = ((List<object>)data["genderPref"]).Select(o => (string)o);
+        var host = new Host(Address: (string)data["address"],
+            AvailableRooms: (long)data["availableRooms"],
+            Cooks: (bool)data["cooks"],
+            Email: (string)hostDict["email"],
+            Id: hostId,
+            Kids: (bool)data["kids"],
+            Languages: languages.ToImmutableArray(),
+            Name: (string)data["name"],
+            Phone: (string)data["phone"],
+            GenderPref: genderPref.ToImmutableArray(),
+            MaxTenants: (long)data["maxTenants"]);
         return host;
+    }
+
+    private static Refugee RefugeeFromDict(string refugeeId, IReadOnlyDictionary<string, object> refugeeDict)
+    {
+        var role = (long)refugeeDict["role"];
+        if (role != 1) throw new IDbService.DbException("This user is not a refugee!");
+        var data = (Dictionary<string, object>)refugeeDict["data"];
+        var languages = ((List<object>)data["languages"]).Select(o => (string)o);
+        var refugee = new Refugee(
+            Email: (string)refugeeDict["email"],
+            Id: refugeeId,
+            HasKids: (bool)data["hasKids"],
+            Languages: languages.ToImmutableArray(),
+            Name: (string)data["name"],
+            Phone: (string)data["phone"],
+            Gender: (string)data["gender"],
+            HouseholdSize: (long)data["householdSize"],
+            Location: (string)data["location"],
+            ActivelyLooking: (bool)data["activelyLooking"]);
+        return refugee;
     }
 }

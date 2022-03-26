@@ -1,16 +1,35 @@
 ﻿@page "/"
 @inject IJSRuntime jsRuntime
+@inject NavigationManager NavigationManager
 
 <PageTitle>Index</PageTitle>
 
 <!-- Three buttons -->
 <div>
-<div class="btn-group" role="group" aria-label="Basic outlined example">
-  <button type="button" class="btn btn-outline-primary" style="padding: 3%">Login</button>
-  
-  <div class="btn-group-vertical">
-    <button type="button" class="btn btn-outline-primary">Register Host</button>
-    <button type="button" class="btn btn-outline-primary">Register Refugee</button>
+
+    <div class="d-grid gap-2">
+        <button class="btn btn-outline-primary" @onclick="Login" type="button">Login</button>
+        <button class="btn btn-outline-primary" @onclick="HostSignUp" type="hsingup">Register Host</button>
+        <button class="btn btn-outline-primary" @onclick="RefugeeSignUp" type="rsignup">Register Refugee</button>
   </div>
+  
+
 </div>
-</div>
+
+@code
+{
+    private void Login()
+    {
+        NavigationManager.NavigateTo("login");
+    }
+
+    private void HostSignUp()
+    {
+        NavigationManager.NavigateTo("hsignup");
+    }
+
+    private void RefugeeSignUp()
+    {
+        NavigationManager.NavigateTo("rsignup");
+    }
+}

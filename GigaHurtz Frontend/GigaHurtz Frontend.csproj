@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,13 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\HomePage" />
-    <None Remove="Pages\NewFile.txt" />
+    <None Remove="Pages\HomePage"/>
+    <None Remove="Pages\NewFile.txt"/>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazorise.Bootstrap" Version="1.0.1" />
-    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.1" />
+    <PackageReference Include="Blazorise.Bootstrap" Version="1.0.1"/>
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.1"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GigaHurtz Common\GigaHurtz Common.csproj"/>
   </ItemGroup>
 
 </Project>

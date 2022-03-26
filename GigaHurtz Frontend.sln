@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GigaHurtz Frontend", "GigaH
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GigaHurtzApi", "GigaHurtzApi\GigaHurtzApi.csproj", "{C7DF67B9-470B-4DEC-8B4C-6ADA0615AF91}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GigaHurtz Common", "GigaHurtz Common\GigaHurtz Common.csproj", "{F596C0F2-BD90-4789-8F63-8CE96DCFAF3A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C7DF67B9-470B-4DEC-8B4C-6ADA0615AF91}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C7DF67B9-470B-4DEC-8B4C-6ADA0615AF91}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C7DF67B9-470B-4DEC-8B4C-6ADA0615AF91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F596C0F2-BD90-4789-8F63-8CE96DCFAF3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F596C0F2-BD90-4789-8F63-8CE96DCFAF3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F596C0F2-BD90-4789-8F63-8CE96DCFAF3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F596C0F2-BD90-4789-8F63-8CE96DCFAF3A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

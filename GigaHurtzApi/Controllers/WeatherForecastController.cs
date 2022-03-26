@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using GigaHurtzApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,5 +36,16 @@ public class WeatherForecastController : ControllerBase
                 Summary = Summaries[Random.Shared.Next(Summaries.Length)]
             })
             .ToArray();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Post(IFormFile file, string hostId)
+    {
+        var contentType = new ContentType(file.ContentType);
+        var result = await _firebase.UploadFile(
+            $"images/{hostId}/house",
+            file.OpenReadStream(),
+            new ContentType(file.ContentType));
+        return Ok(result);
     }
 }

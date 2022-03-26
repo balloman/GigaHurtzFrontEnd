@@ -7,6 +7,8 @@ namespace GigaHurtzApi.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
+
+    private readonly FirebaseService _firebase;
     private static readonly string[] Summaries =
     {
         "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -17,12 +19,13 @@ public class WeatherForecastController : ControllerBase
     public WeatherForecastController(ILogger<WeatherForecastController> logger, FirebaseService firebaseService)
     {
         _logger = logger;
-        firebaseService.ToString();
+        _firebase = firebaseService;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
     public IEnumerable<WeatherForecast> Get()
     {
+        _firebase.GetHost("bMnCR69qgBbnd4axLBzd").Wait();
         return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

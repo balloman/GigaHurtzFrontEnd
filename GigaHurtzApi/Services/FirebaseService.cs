@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Collections.Immutable;
+using System.Text;
 using GigaHurtzApi.Models;
 using Google.Cloud.Firestore;
 using Host = GigaHurtzApi.Models.Host;
@@ -54,10 +55,19 @@ public class FirebaseService : IDbService
 
     private Host FromDict(Dictionary<string, object> hostDict)
     {
-        var role = hostDict["role"];
-        if (())
+        var role = (int) hostDict["role"];
+        if (role != 0)
         {
-            
+            throw new IDbService.DbException("This user is not a host!");
         }
+
+        var data = (KeyValuePair<string, Object>) hostDict["data"];
+        var host = new Host
+        {
+            Address = (string) data["address"],
+            AvailableRooms = (int) data["availableRooms"],
+            Cooks = (bool) data["cooks"],
+        };
+        return host;
     }
 }

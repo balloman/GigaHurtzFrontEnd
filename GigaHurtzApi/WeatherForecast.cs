@@ -1,4 +1,4 @@
-namespace GigaHurtz_Frontend.Data;
+namespace GigaHurtzApi;
 
 public class WeatherForecast
 {

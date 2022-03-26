@@ -59,12 +59,12 @@ public class FirebaseService : IDbService
         return refugeeDict is null ? null : RefugeeFromDict(id, refugeeDict);
     }
 
-    public async Task<int?> GetUserRole(string id)
+    public async Task<int?> GetRole(string id)
     {
-        var userDict = await GetUserDocuemnt(id);
+        var userDict = await GetUserDocument(id);
         if (userDict is null) return null;
         var role = Convert.ToInt32(userDict["role"]);
-        return userDict is null ? null : userDict["role"];
+        return role;
     }
 
     /// <inheritdoc/>

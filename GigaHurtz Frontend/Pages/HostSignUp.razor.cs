@@ -55,7 +55,7 @@ public partial class HostSignUp
             ImageUrl: ImageUrl
         );
         await ApiService.AddHost(hostObject);
-        NavigationManager.NavigateTo("login");
+        NavigationManager.NavigateTo("/login");
     }
 }
 

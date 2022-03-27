@@ -1,16 +1,15 @@
 using GigaHurtz.Common.Models;
-using GigaHurtz_Frontend.Services;
 
 namespace GigaHurtz_Frontend.Pages;
 
-public partial class HostPage {
+public partial class HostPage
+{
+    private HostModel host = HostModel.Empty;
 
-    private HostModel host;
-
-    public HostPage(IApiService api)
+    /// <inheritdoc/>
+    protected override async Task OnInitializedAsync()
     {
-        var hostId = api.UserId;
-        if (hostId is not null) host = api.GetHost(hostId).Result;
+        var hostId = ApiService.UserId;
+        if (hostId is not null) host = await ApiService.GetHost(hostId);
     }
-
 }

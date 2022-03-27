@@ -3,7 +3,8 @@ using GigaHurtz_Frontend.Services;
 
 namespace GigaHurtz_Frontend.Pages;
 
-public partial class RefugeePage {
+public partial class RefugeePage
+{
     private Refugee? refugee;
 
     public RefugeePage(IApiService api)
@@ -11,5 +12,4 @@ public partial class RefugeePage {
         var id = api.UserId;
         if (id is not null) refugee = api.GetRefugee(id).Result;
     }
-
 }

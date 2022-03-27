@@ -2,7 +2,7 @@
 
 public record HostModel(string Id, string Name, long AvailableRooms, long MaxTenants, string Address,
                         IEnumerable<string> Languages, bool Kids, bool Cooks, IEnumerable<string> GenderPref,
-                        string Phone, string Email, string ImageUrl)
+                        string Phone, string Email, string ImageUrl, IEnumerable<string> Requests)
 {
     public static HostModel Empty => new("",
         "",
@@ -15,5 +15,6 @@ public record HostModel(string Id, string Name, long AvailableRooms, long MaxTen
         Array.Empty<string>(),
         "",
         "",
-        "");
+        "",
+        Array.Empty<string>());
 }

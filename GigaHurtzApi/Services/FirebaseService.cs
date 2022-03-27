@@ -105,6 +105,7 @@ public class FirebaseService : IDbService
         var data = (Dictionary<string, object>)hostDict["data"];
         var languages = ((List<object>)data["languages"]).Select(o => (string)o);
         var genderPref = ((List<object>)data["genderPref"]).Select(o => (string)o);
+        var requests = ((List<object>)data["requests"]).Select(o => (string)o);
         var host = new HostModel(Address: (string)data["address"],
             AvailableRooms: (long)data["availableRooms"],
             Cooks: (bool)data["cooks"],
@@ -116,7 +117,8 @@ public class FirebaseService : IDbService
             Phone: (string)data["phone"],
             GenderPref: genderPref.ToImmutableArray(),
             MaxTenants: (long)data["maxTenants"],
-            ImageUrl: (string)data["imageUrl"]);
+            ImageUrl: (string)data["imageUrl"],
+            Requests: requests.ToImmutableArray());
         return host;
     }
 
@@ -155,7 +157,8 @@ public class FirebaseService : IDbService
             { "phone", host.Phone },
             { "genderPref", host.GenderPref.ToList() },
             { "maxTenants", host.MaxTenants },
-            { "imageUrl", host.ImageUrl }
+            { "imageUrl", host.ImageUrl },
+            {"requests", host.Requests.ToList()}
         };
         return new Dictionary<string, object>
         {

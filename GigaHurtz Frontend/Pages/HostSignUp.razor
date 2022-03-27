@@ -3,7 +3,7 @@
 @inject NavigationManager NavigationManager
 @inject IApiService ApiService
 
-<form>
+<div>
     <div class="mb-3">
         <label for="hostName" class="form-label">Name</label>
         <input @bind="Name" type="text" class="form-control" id="hostName" required>
@@ -68,5 +68,5 @@
     </div>
 
     <br>
-    <button @onclick="HostPage" type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <button @onclick="HostPage" class="btn btn-primary">Submit</button>
+</div>

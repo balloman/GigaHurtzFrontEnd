@@ -1,11 +1,11 @@
 @page "/rsignup"
-@inject NavigationManager _NavigationManager
 @using GigaHurtz_Frontend.Services
+@inject NavigationManager _NavigationManager
 @inject IApiService ApiService
 
 <h1>Refugee Signup</h1>
 
-<form>
+<div>
     <div class="mb-3">
         <label for="refugeeName" class="form-label">Name</label>
         <input @bind="name" type="text" class="form-control" id="refugeeName" required>
@@ -52,7 +52,7 @@
         <label class="form-check-label" for="RefugeeAcceptFemale">Male</label>
     </div>
     <div class="form-check form-check-inline">
-        <input @bind="hasFemale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale" >
+        <input @bind="hasFemale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale">
         <label class="form-check-label" for="refugeeAcceptFemale">Female</label>
     </div>
     <div class="form-check form-check-inline">
@@ -61,5 +61,5 @@
     </div>
 
     <br>
-    <button @onclick="GoToRPage" type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <button @onclick="GoToRPage" class="btn btn-primary">Submit</button>
+</div>

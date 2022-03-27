@@ -17,7 +17,7 @@ public partial class RefugeeSignUp
     private string Name { get; set; } = string.Empty;
     private string Password { get; set; } = string.Empty;
     private string PhoneNumber { get; set; } = string.Empty;
-    private string SelectedLanguage { get; set; } = string.Empty;
+    private string SelectedLanguage { get; set; } = "English";
 
 
     private async Task GoToRPage()

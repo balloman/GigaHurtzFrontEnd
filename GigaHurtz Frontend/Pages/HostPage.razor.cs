@@ -9,7 +9,7 @@ public partial class HostPage
     /// <inheritdoc/>
     protected override async Task OnInitializedAsync()
     {
-        Refresh();
+        await Refresh();
     }
 
     private async Task Refresh()

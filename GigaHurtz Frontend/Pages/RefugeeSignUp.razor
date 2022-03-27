@@ -38,10 +38,10 @@
 
     <div class="mb-3">
         <label for="refugeeLanguages" class="form-label">Language(s) Spoken</label>
-        <Select id="refugeeLanguages" TValue="string">
+        <Select @bind-SelectedValue="@SelectedLanguage" id="refugeeLanguages" TValue="string">
             @foreach (var language in ApiService.Languages)
             {
-                <SelectItem @bind="SelectedLanguage">@language</SelectItem>
+                <SelectItem Value="language">@language</SelectItem>
             }
         </Select>
     </div>

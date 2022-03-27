@@ -1,4 +1,7 @@
-﻿namespace GigaHurtzApi.Controllers;
+﻿using GigaHurtzApi.Services;
+using Microsoft.AspNetCore.Mvc;
+
+namespace GigaHurtzApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
@@ -12,8 +15,10 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<string>> GetUserRole(string id)
+    public async Task<ActionResult<int>> GetUserRole(string id)
     {
-        var user = await _dbService.GetUserRole(id);
+        var user = await _dbService.GetRole(id);
+        if (user is null) return NotFound();
+        return Ok(user);
     }
 }

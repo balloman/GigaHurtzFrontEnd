@@ -25,6 +25,14 @@ public interface IApiService
 
     public Task AddRefugee(Refugee refugee);
 
+    public Task AddRequest(HostModel host, Refugee refugee);
+
+    public Task<IEnumerable<Refugee>> GetRequests(HostModel host);
+
+    public Task<IEnumerable<HostModel>> GetHosts();
+
+    public Task<IEnumerable<Compatibility>> GetCompatibility(Refugee refugee); 
+
     public enum Role
     {
         Host,

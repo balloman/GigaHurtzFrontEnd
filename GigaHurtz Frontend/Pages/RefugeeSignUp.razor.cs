@@ -25,7 +25,10 @@ public partial class RefugeeSignUp
         await SubmitHostInfo();
         _NavigationManager.NavigateTo("rpage");
     }
-
+    private void MainMenu()
+    {
+        _NavigationManager.NavigateTo("");
+    }
     private string convertToString(bool hasMale, bool hasFemale, bool hasBoth)
     {
         if (hasMale)

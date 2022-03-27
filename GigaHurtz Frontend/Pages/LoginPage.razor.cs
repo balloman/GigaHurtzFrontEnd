@@ -23,4 +23,8 @@ public partial class LoginPage
                 throw new ArgumentOutOfRangeException();
         }
     }
+    private void MainMenu()
+    {
+        NavigationManager.NavigateTo("");
+    }
 }

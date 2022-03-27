@@ -103,4 +103,38 @@ public class ApiService : IApiService
         if (!response.IsSuccessStatusCode)
             throw new HttpRequestException("There was an error posting to the database");
     }
+
+    /// <inheritdoc/>
+    public async Task AddRequest(HostModel host, Refugee refugee)
+    {
+        var response = await _client.PostAsync($"host/{host.Id}/{refugee.Id}", null);
+        if (!response.IsSuccessStatusCode)
+            throw new HttpRequestException(
+                "There was an error posting to the database with code " + response.StatusCode);
+    }
+
+    /// <inheritdoc/>
+    public async Task<IEnumerable<Refugee>> GetRequests(HostModel host)
+    {
+        var list = new LinkedList<Refugee>();
+        foreach (var refugeeId in host.Requests)
+        {
+            var refugee = await GetRefugee(refugeeId);
+            list.AddLast(refugee);
+        }
+
+        return list;
+    }
+
+    /// <inheritdoc/>
+    public async Task<IEnumerable<HostModel>> GetHosts()
+    {
+        var hosts = await _client.GetFromJsonAsync<IEnumerable<HostModel>>("host");
+        if (hosts is null) throw new HttpRequestException("There was an error getting the hosts from the database");
+        return hosts;
+    }
+
+    /// <inheritdoc/>
+    public async Task<IEnumerable<Compatibility>> GetCompatibility(Refugee refugee) =>
+        throw new NotImplementedException();
 }

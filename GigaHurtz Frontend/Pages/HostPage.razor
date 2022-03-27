@@ -35,14 +35,14 @@
     {
         var refugee = ApiService.GetRefugee(request).Result;
 
-            <li class="list-group-item">
-                <div class="card mb-3" style="max-width: 780;">
-                    <div class="card-body">
-                        <h5 class="card-title">Name</h5>
-                        <p class="card-text">Group Size: Gender(s): [Male,Female,Both] </p>
-                        <p class="card-text">Languages: ... #Havekids #</p>
-                    </div>
+        <li class="list-group-item">
+            <div class="card mb-3" style="max-width: 780;">
+                <div class="card-body">
+                    <h5 class="card-title">@refugee.Name</h5>
+                    <p class="card-text">Group Size: @refugee.HouseholdSize Gender(s): @refugee.Gender</p>
+                    <p class="card-text">Languages: @string.Join(", ", refugee.Languages) Have Kids: @refugee.HasKids</p>
                 </div>
-            </li>
+            </div>
+        </li>
     }
 </ul>

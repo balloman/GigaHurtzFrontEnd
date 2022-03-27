@@ -31,9 +31,9 @@
         </button>
         <h3 style="display: inline">Pending Requests</h3>
     </li>
-    @foreach (var requests in ApiService)
+    @foreach (var request in host.Requests)
     {
-        var refugee = ApiService.GetRefugee(compatabilities.RefugeeId).Result;
+        var refugee = ApiService.GetRefugee(request).Result;
 
             <li class="list-group-item">
                 <div class="card mb-3" style="max-width: 780;">

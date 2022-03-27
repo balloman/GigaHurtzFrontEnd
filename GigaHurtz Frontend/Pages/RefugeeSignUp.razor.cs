@@ -4,20 +4,20 @@ namespace GigaHurtz_Frontend.Pages;
 
 public partial class RefugeeSignUp
 {
-    private bool activelyLooking;
-    private string address;
-    private string email;
-    private int groupSize;
-    private bool hasBoth;
-    private bool hasEmail;
-    private bool hasFemale;
-    private bool hasKids;
-    private bool hasMale;
-    private string[] languages;
+    private bool ActivelyLooking => true;
+    private string Address { get; set; } = string.Empty;
+    private string Email { get; set; } = string.Empty;
+    private int GroupSize { get; set; }
+    private bool HasBoth { get; set; }
+    private bool HasFemale { get; set; }
+    private bool HasKids { get; set; }
+    private bool HasMale { get; set; }
+    private string[] Languages { get; set; } = Array.Empty<string>();
 
-    private string name;
-    private string password;
-    private string phoneNumber;
+    private string Name { get; set; } = string.Empty;
+    private string Password { get; set; } = string.Empty;
+    private string PhoneNumber { get; set; } = string.Empty;
+    private string SelectedLanguage { get; set; } = string.Empty;
 
 
     private async Task GoToRPage()
@@ -35,20 +35,24 @@ public partial class RefugeeSignUp
         return "Both";
     }
 
-    public async Task SubmitHostInfo()
+    private async Task SubmitHostInfo()
     {
-        var refugeeId = await ApiService.Register(email, password);
+        if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
+        {
+            return;
+        }
+        var refugeeId = await ApiService.Register(Email, Password);
         var refugeeObject = new Refugee(
             refugeeId,
-            name,
-            Email: email,
-            Phone: phoneNumber,
-            Location: address,
-            Languages: languages,
-            HasKids: hasKids,
-            HouseholdSize: groupSize,
-            Gender: convertToString(hasMale, hasFemale, hasBoth),
-            ActivelyLooking: activelyLooking
+            Name,
+            Email: Email,
+            Phone: PhoneNumber,
+            Location: Address,
+            Languages: Languages,
+            HasKids: HasKids,
+            HouseholdSize: GroupSize,
+            Gender: convertToString(HasMale, HasFemale, HasBoth),
+            ActivelyLooking: ActivelyLooking
         );
         await ApiService.AddRefugee(refugeeObject);
     }

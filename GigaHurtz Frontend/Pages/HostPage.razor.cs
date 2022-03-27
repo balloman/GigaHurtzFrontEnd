@@ -9,6 +9,11 @@ public partial class HostPage
     /// <inheritdoc/>
     protected override async Task OnInitializedAsync()
     {
+        Refresh();
+    }
+
+    private async Task Refresh()
+    {
         var hostId = ApiService.UserId;
         if (hostId is not null) host = await ApiService.GetHost(hostId);
     }

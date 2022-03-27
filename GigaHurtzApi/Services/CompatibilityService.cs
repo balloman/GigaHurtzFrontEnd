@@ -22,37 +22,41 @@ public class CompatibilityService
     public async Task<IImmutableList<Compatibility>> GetCompatForUser(string uid)
     {
         
-        // var refugee = await _dbService.GetRefugee(uid);
-        // var host = await _dbService.GetHost(uid);
+        var refugee = await _dbService.GetRefugee(uid);
+        if (refugee is null) throw new ArgumentException("No refugee found with that uid");
+        var hosts = await _dbService.GetAllHosts();
+        var compat = new List<Compatibility>();
+        foreach (var host in hosts)
+        {
+            var score = 0.0;
         
-        // var score = 0.0;
+            score += ( 25 - (5 *  (host.MaxTenants - refugee.HouseholdSize)) );     /// # of people
+
+            score += ( 50 - (2 * (0)) ); /// Distance
         
-        // score += ( 25 - (5 *  (host.MaxTenants - refugee.HouseholdSize)) );     /// # of people
+            if (host.GenderPref.Contains(refugee.Gender))      /// Gender
+                score += 10;
+            if (host.GenderPref.Any(s => refugee.Gender != s))
+            {
+                score -= 5;
+            }
 
-        // score += ( 50 - (2 * (host.Address - refugee.Location)) ); /// Distance
+            if (host.Kids)      /// Kids
+                score += 8;
+            else
+                score += 4;
+
+            if (host.Languages.Any(s => refugee.Languages.Contains(s)))     /// Language
+                score += 5;
         
-        // if (host.GenderPref.contains(refugee.Gender))      /// Gender
-        //     score += 5;
-        // else
-        //     score += 10;
+            if (host.Cooks)     // Can cook
+                score += 4;
 
-        // if (host.Kids)      /// Kids
-        //     score += 8;
-        // else
-        //     score += 4;
+            score += ( 10 / refugee.HouseholdSize * host.AvailableRooms );      /// # of rooms
 
-        // if (host.Languages.Contains(refugee.Languages))     /// Language
-        //     score += 5;
-        
-        // if (host.Cooks)     // Can cook
-        //     score += 4;
-
-        // score += ( 10 / refugee.HouseholdSize * host.AvailableRooms );      /// # of rooms
-
-        // score = (score / 112) * 100;        // Final compatability score        
-
-        // return null;
-
-        throw new NotImplementedException();
+            score = (score / 112) * 100;
+            compat.Add(new Compatibility(host.Id, score, host.Name));
+        }
+        return compat.OrderByDescending(s => s.CompatibilityScore).ToImmutableList();
     }
 }

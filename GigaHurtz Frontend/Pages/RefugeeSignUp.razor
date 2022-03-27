@@ -8,55 +8,60 @@
 <div>
     <div class="mb-3">
         <label for="refugeeName" class="form-label">Name</label>
-        <input @bind="name" type="text" class="form-control" id="refugeeName" required>
+        <input @bind="Name" type="text" class="form-control" id="refugeeName" required>
     </div>
 
     <div class="mb-3">
         <label for="refugeeEmail" class="form-label">Email address</label>
-        <input @bind="email" type="email" class="form-control" id="refugeeEmail" required>
+        <input @bind="Email" type="email" class="form-control" id="refugeeEmail" required>
     </div>
 
     <div class="mb-3">
         <label for="refugeePassword" class="form-label">Password</label>
-        <input @bind="password" type="password" class="form-control" id="refugeePassword" required>
+        <input @bind="Password" type="password" class="form-control" id="refugeePassword" required>
     </div>
 
     <div class="mb-3">
         <label for="refugeePhoneNumber" class="form-label">Phone Number</label>
-        <input @bind="phoneNumber" type="text" class="form-control" id="refugeePhoneNumber">
+        <input @bind="PhoneNumber" type="text" class="form-control" id="refugeePhoneNumber">
     </div>
 
     <div class="mb-3">
         <label for="refugeeAddress" class="form-label">Address</label>
-        <input @bind="address" type="text" class="form-control" id="refugeeAddress" required>
+        <input @bind="Address" type="text" class="form-control" id="refugeeAddress" required>
     </div>
 
     <div class="mb-3">
         <label for="refugeeSize" class="form-label">Group Size</label>
-        <input @bind="groupSize" type="number" min="1" class="form-control" id="refugeeSize" required>
+        <input @bind="GroupSize" type="number" min="1" class="form-control" id="refugeeSize" required>
     </div>
 
     <div class="mb-3">
         <label for="refugeeLanguages" class="form-label">Language(s) Spoken</label>
-        <input @bind="languages" type="text" class="form-control" id="refugeeLanguages"> <!--CHANGE INPUT TYPE TO SELECT-->
+        <Select id="refugeeLanguages" TValue="string">
+            @foreach (var language in ApiService.Languages)
+            {
+                <SelectItem @bind="SelectedLanguage">@language</SelectItem>
+            }
+        </Select>
     </div>
 
     <div class="form-check form-switch">
-        <input @bind="hasKids" class="form-check-input" type="checkbox" role="switch" id="refugeeKids" required>
+        <input @bind="HasKids" class="form-check-input" type="checkbox" role="switch" id="refugeeKids" required>
         <label class="form-check-label" for="refugeeKids">Have Kids</label>
     </div>
 
     <label for="refugeeAcceptGender">Gender (Ages 13+):</label>
     <div class="form-check form-check-inline">
-        <input @bind="hasMale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptMale">
+        <input @bind="HasMale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptMale">
         <label class="form-check-label" for="RefugeeAcceptFemale">Male</label>
     </div>
     <div class="form-check form-check-inline">
-        <input @bind="hasFemale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale">
+        <input @bind="HasFemale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale">
         <label class="form-check-label" for="refugeeAcceptFemale">Female</label>
     </div>
     <div class="form-check form-check-inline">
-        <input @bind="hasBoth" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale">
+        <input @bind="HasBoth" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale">
         <label class="form-check-label" for="refugeeAcceptFemale">Mixed Group</label>
     </div>
 

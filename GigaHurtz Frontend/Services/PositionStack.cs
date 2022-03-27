@@ -10,8 +10,12 @@ public class PositionStack
     private static string API_ACCESS_KEY = "a25e434da2ddd43ae9128b8f5d06f446";
 
     private static HttpClient client = new HttpClient();
+    
+    public PositionStack()
+    {
 
-    static async Task RunAsync()
+    }
+    public async void RunAsync()
     {
         // Update port # in the following line.
         client.BaseAddress = new Uri("http://api.positionstack.com/v1/");
@@ -20,10 +24,9 @@ public class PositionStack
             new MediaTypeWithQualityHeaderValue("application/json"));
     }
 
-    static async Task<string> GetLocationData()
+    public async Task<string> GetLocationData(String address)
     {
-        var address = "";
-        var query = $"forward?access_key={API_ACCESS_KEY}&query={address}";
+        var query = $"forward?access_key={API_ACCESS_KEY}&output=geojson&query={address}";
         var data = await client.GetStringAsync(query);
         return data;
     }

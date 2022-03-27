@@ -26,6 +26,10 @@ public partial class HostSignUp
         await SubmitHostInfo();
         NavigationManager.NavigateTo("hpage");
     }
+    private void MainMenu()
+    {
+        NavigationManager.NavigateTo("");
+    }
 
     private string[] ConvertToString(bool malePref, bool femalePref)
     {

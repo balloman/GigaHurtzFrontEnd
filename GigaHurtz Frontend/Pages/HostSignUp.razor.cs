@@ -16,6 +16,7 @@ public partial class HostSignUp
     private bool FemalePref { get; set; }
 
     private int AvailableRooms { get; set; }
+    private string SelectedLanguage { get; set; } = "English";
 
     private string ImageUrl { get; } =
         "https://image.shutterstock.com/image-vector/no-house-icon-illustration-isolated-260nw-637489690.jpg";

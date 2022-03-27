@@ -39,10 +39,10 @@
         <input @bind="MaxTenants" type="number" min="0" class="form-control" id="hostMaxTenants" required>
     </div>
 
-    <Select TValue="string">
+    <Select @bind-SelectedValue="@SelectedLanguage" TValue="string">
         @foreach (var language in ApiService.Languages)
         {
-            <SelectItem>@language</SelectItem>
+            <SelectItem Value="language">@language</SelectItem>
         }
     </Select>
 

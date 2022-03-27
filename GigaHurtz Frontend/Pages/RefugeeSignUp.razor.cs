@@ -1,23 +1,24 @@
 ﻿using GigaHurtz.Common.Models;
 
 namespace GigaHurtz_Frontend.Pages;
+
 public partial class RefugeeSignUp
 {
-
-    private String name;
-    private String email;
-    private String password;
-    private String phoneNumber;
-    private String address;
-    private int groupSize;
-    private String[] languages;
-    private bool hasKids;
-    private bool hasEmail;
-    private bool hasMale;
-    private bool hasFemale;
-    private bool hasBoth;
     private bool activelyLooking;
-    
+    private string address;
+    private string email;
+    private int groupSize;
+    private bool hasBoth;
+    private bool hasEmail;
+    private bool hasFemale;
+    private bool hasKids;
+    private bool hasMale;
+    private string[] languages;
+
+    private string name;
+    private string password;
+    private string phoneNumber;
+
 
     private async Task GoToRPage()
     {
@@ -25,7 +26,7 @@ public partial class RefugeeSignUp
         _NavigationManager.NavigateTo("rpage");
     }
 
-    private String convertToString(bool hasMale, bool hasFemale, bool hasBoth)
+    private string convertToString(bool hasMale, bool hasFemale, bool hasBoth)
     {
         if (hasMale)
             return "Male";
@@ -38,8 +39,8 @@ public partial class RefugeeSignUp
     {
         var refugeeId = await ApiService.Register(email, password);
         var refugeeObject = new Refugee(
-            Id: refugeeId,
-            Name: name,
+            refugeeId,
+            name,
             Email: email,
             Phone: phoneNumber,
             Location: address,

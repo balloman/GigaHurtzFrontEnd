@@ -52,10 +52,11 @@ public partial class HostSignUp
             Cooks: ProvidesFood,
             GenderPref: ConvertToString(MalePref, FemalePref),
             AvailableRooms: AvailableRooms,
-            ImageUrl: ImageUrl
+            ImageUrl: ImageUrl,
+            Requests: Array.Empty<string>()
         );
         await ApiService.AddHost(hostObject);
-        NavigationManager.NavigateTo("login");
+        NavigationManager.NavigateTo("/login");
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿@page "/hpage"
+@using GigaHurtz_Frontend.Services
 @inject NavigationManager NavigationManager
-
+@inject IApiService ApiService
 
 <!-- Host Information (Card format) -->
 <div class="card mb-3" style="max-width: 780;">
@@ -14,8 +15,8 @@
                 <h5 class="card-title">@host.Name</h5>
                 <p class="card-text">Address: @host.Address Phone: @host.Phone</p>
                 <p class="card-text">Email: @host.Email</p>
-                <p class="card-text"># of Rooms: @host.AvailableRooms Max Number of Tenants: @host.MaxTenants Languages: @host.Languages</p>
-                <p class="card-text">Gender(s): @host.GenderPref Have Kids: @host.Kids Provide Food: @host.Cooks</p>
+                <p class="card-text"># of Rooms: @host.AvailableRooms Max Number of Tenants: @host.MaxTenants Languages: @string.Join(", ", host.Languages)</p>
+                <p class="card-text">Gender(s): @string.Join(", ", host.GenderPref) Have Kids: @host.Kids Provide Food: @host.Cooks</p>
             </div>
         </div>
     </div>

@@ -41,4 +41,28 @@ public class HostController : ControllerBase
     {
         return Ok(await _dbService.GetAllHosts());
     }
+
+    [HttpPost("{hostId}/{requestId}")]
+    public async Task<IActionResult> MakeRequest(string hostId, string requestId)
+    {
+        var host = await _dbService.GetHost(hostId);
+        if (host is null) return NotFound();
+        var requests = host.Requests.ToList();
+        requests.Add(requestId);
+        var newHost = new HostModel(host.Id,
+            host.Name,
+            host.AvailableRooms,
+            host.MaxTenants,
+            host.Address,
+            host.Languages,
+            host.Kids,
+            host.Cooks,
+            host.GenderPref,
+            host.Phone,
+            host.Email,
+            host.ImageUrl,
+            requests);
+        await _dbService.AddHost(newHost);
+        return Ok();
+    }
 }

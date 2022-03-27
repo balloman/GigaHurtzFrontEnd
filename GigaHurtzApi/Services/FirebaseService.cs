@@ -5,7 +5,6 @@ using GigaHurtz.Common.Models;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Firestore;
 using Google.Cloud.Storage.V1;
-using Host = GigaHurtz.Common.Models.Host;
 
 namespace GigaHurtzApi.Services;
 
@@ -35,7 +34,7 @@ public class FirebaseService : IDbService
         _storage = StorageClient.Create(GoogleCredential.FromJson(convertedSecret));
     }
 
-    public async Task AddHost(Host host)
+    public async Task AddHost(HostModel host)
     {
         var dict = ToHostDict(host);
         await UserCollection.Document(host.Id).SetAsync(dict);
@@ -47,7 +46,7 @@ public class FirebaseService : IDbService
         await UserCollection.Document(refugee.Id).SetAsync(dict);
     }
 
-    public async Task<Host?> GetHost(string id)
+    public async Task<HostModel?> GetHost(string id)
     {
         var hostDict = await GetUserDocument(id);
         return hostDict is null ? null : HostFromDict(id, hostDict);
@@ -57,6 +56,18 @@ public class FirebaseService : IDbService
     {
         var refugeeDict = await GetUserDocument(id);
         return refugeeDict is null ? null : RefugeeFromDict(id, refugeeDict);
+    }
+
+    public async Task<IImmutableList<HostModel>> GetAllHosts()
+    {
+        var hostsRef = await UserCollection.WhereEqualTo("role", 0).GetSnapshotAsync();
+        var linkedList = new LinkedList<HostModel>();
+        foreach (var document in hostsRef.Documents)
+        {
+            linkedList.AddLast(HostFromDict(document.Id, document.ToDictionary()));
+        }
+
+        return linkedList.ToImmutableArray();
     }
 
     public async Task<int?> GetRole(string id)
@@ -82,7 +93,7 @@ public class FirebaseService : IDbService
         return !documentSnapshot.Exists ? null : documentSnapshot.ToDictionary();
     }
 
-    private static Host HostFromDict(string hostId, IReadOnlyDictionary<string, object> hostDict)
+    private static HostModel HostFromDict(string hostId, IReadOnlyDictionary<string, object> hostDict)
     {
         var role = (long)hostDict["role"];
         if (role != 0)
@@ -93,7 +104,7 @@ public class FirebaseService : IDbService
         var data = (Dictionary<string, object>)hostDict["data"];
         var languages = ((List<object>)data["languages"]).Select(o => (string)o);
         var genderPref = ((List<object>)data["genderPref"]).Select(o => (string)o);
-        var host = new Host(Address: (string)data["address"],
+        var host = new HostModel(Address: (string)data["address"],
             AvailableRooms: (long)data["availableRooms"],
             Cooks: (bool)data["cooks"],
             Email: (string)hostDict["email"],
@@ -128,7 +139,7 @@ public class FirebaseService : IDbService
         return refugee;
     }
 
-    private static Dictionary<string, object> ToHostDict(Host host)
+    private static Dictionary<string, object> ToHostDict(HostModel host)
     {
         var dataDict = new Dictionary<string, object>
         {

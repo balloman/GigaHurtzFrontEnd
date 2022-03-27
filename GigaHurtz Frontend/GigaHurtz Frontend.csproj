@@ -8,17 +8,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Pages\HomePage"/>
-    <None Remove="Pages\NewFile.txt"/>
+    <None Remove="Pages\HomePage" />
+    <None Remove="Pages\NewFile.txt" />
+    <None Remove="Services\NewFile.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Blazorise.Bootstrap" Version="1.0.1"/>
-    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.1"/>
+    <PackageReference Include="Blazorise.Bootstrap" Version="1.0.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GigaHurtz Common\GigaHurtz Common.csproj"/>
+    <ProjectReference Include="..\GigaHurtz Common\GigaHurtz Common.csproj" />
   </ItemGroup>
 
 </Project>

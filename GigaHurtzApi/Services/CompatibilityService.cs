@@ -17,8 +17,14 @@ public class CompatibilityService
     /// </summary>
     /// <param name="uid"></param>
     /// <returns>Immutable list of compat objects</returns>
-    public IImmutableList<Compatibility> GetCompatForUser(string uid)
+    public async Task<IImmutableList<Compatibility>> GetCompatForUser(string uid)
     {
+        var refugee = await _dbService.GetRefugee(uid);
+
+        var score = 0.0;
+
+        score += ( 25 - (5 *  host (refugee.HouseholdSize)) )     /// # of people
+
         return null;
     }
 }

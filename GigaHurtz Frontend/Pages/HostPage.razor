@@ -1,4 +1,6 @@
-﻿@page "/hpage"
+﻿@inject IApiService.cs
+
+@page "/hpage"
 @inject NavigationManager NavigationManager
 
 
@@ -22,6 +24,7 @@
 </div>
 <!-- Pending Requests -->
 <hr>
+
 <ul class="list-group">
     <li class="list-group-item active">Pending Requests</li>
     <!-- Row Format Begins -->
@@ -41,3 +44,7 @@
     <!-- Row Format Ends -->
     <li class="list-group-item">Morbi leo risus</li>
 </ul>
+
+@code {
+
+}

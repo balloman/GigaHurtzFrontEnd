@@ -2,6 +2,7 @@
 using GigaHurtz_Frontend.Services;
 using GigaHurtz.Common.Models;
 
+namespace GigaHurtz_Frontend.Pages;
 public partial class HostSignUp
 {
     private string name;
@@ -9,7 +10,7 @@ public partial class HostSignUp
     private string password;
     private string phoneNumber;
     private string address;
-    private int MaxTenants;
+    private int maxTenants;
     private string[] languages;
     private bool hostKids;
     private bool providesFood;
@@ -19,51 +20,42 @@ public partial class HostSignUp
 
     private int availableRooms;
     private string imageUrl;
-    private readonly IApiService apiService;
-    private readonly NavigationManager NavigationManager;
 
-
-    public HostSignUp(IApiService apiService, NavigationManager navigationManager) 
+    public async Task HostPage()
     {
-        this.apiService = apiService;
-        NavigationManager = navigationManager;
-    }
-
-    public void HostPage()
-    {
+        await SubmitHostInfo();
         NavigationManager.NavigateTo("hpage");
     }
 
-    private String convertToString(bool malePref, bool femalePref)
+    private string[] ConvertToString(bool malePref, bool femalePref)
     {
         if (malePref && femalePref)
-            return "Mixed";
+            return new[] {"Female", "Male"};
         else if (malePref)
-            return "Male";
+            return new[] { "Male" };
         else if (femalePref)
-            return "Female";
-        else
-            return "None";
+            return new[] {"Female"};
+        return new[] {"Female", "Male"};
     }
 
     public async Task SubmitHostInfo()
     {
-        var hostId = await apiService.Register(email, password);
+        var hostId = await ApiService.Register(email, password);
         var hostObject = new HostModel(
             Id: hostId,
             Name: name,
             Email: email,
             Phone: phoneNumber,
             Address: address,
-            MaxTenants: MaxTenants,
+            MaxTenants: maxTenants,
             Languages: languages,
-            Kids: hasKids,
-            Cooks: hasFood,
-            GenderPref: convertToString(malePref, femalePref),
+            Kids: hostKids,
+            Cooks: providesFood,
+            GenderPref: ConvertToString(malePref, femalePref),
             AvailableRooms: availableRooms,
             ImageUrl: imageUrl
         );
-        await apiService.AddHost(hostObject);
+        await ApiService.AddHost(hostObject);
         NavigationManager.NavigateTo("login");
     }
 }

@@ -1,21 +1,34 @@
 ﻿using GigaHurtz.Common.Models;
+using Microsoft.JSInterop;
 
 namespace GigaHurtz_Frontend.Services;
 
 public class ApiService : IApiService
 {
     private readonly HttpClient _client;
+    private readonly IJSRuntime _runtime;
     private const string BASE_ADDRESS = "https://gigahurtz-api.herokuapp.com";
 
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
 
-    public ApiService()
+    public ApiService(IJSRuntime jsRuntime)
     {
+        _runtime = jsRuntime;
         _client = new HttpClient
         {
             BaseAddress = new Uri(BASE_ADDRESS)
         };
     }
+
+    public IEnumerable<string> Languages
+    {
+        get
+        {
+            using var tempClient = new HttpClient();
+
+        }
+    }
+
     public async Task<HostModel> GetHost(string userId)
     {
         var host = await _client.GetFromJsonAsync<HostModel>($"Host/{userId}");
@@ -43,12 +56,14 @@ public class ApiService : IApiService
 
     public async Task<string?> Login(string email, string password)
     {
-        throw new NotImplementedException();
+        var uid = await _runtime.InvokeAsync<string>("FirebaseFunctions.login", new object?[] {email, password});
+        return uid;
     }
 
     public async Task<string> Register(string email, string password)
     {
-        throw new NotImplementedException();
+        var uid = await _runtime.InvokeAsync<string>("FirebaseFunctions.login", new object?[] { email, password });
+        return uid;
     }
 
     public async Task AddHost(HostModel host)

@@ -2,6 +2,7 @@ using Blazorise;
 using Blazorise.Bootstrap;
 using Blazorise.Icons.FontAwesome;
 using GigaHurtz_Frontend.Data;
+using GigaHurtz_Frontend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddBlazorise(options =>
 {
     options.Immediate = true;
 }).AddBootstrapProviders().AddFontAwesomeIcons();
+builder.Services.AddScoped<IApiService, ApiService>();
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();

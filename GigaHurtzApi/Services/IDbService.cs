@@ -1,6 +1,6 @@
-﻿using System.Net.Mime;
+﻿using System.Collections.Immutable;
+using System.Net.Mime;
 using GigaHurtz.Common.Models;
-using Host = GigaHurtz.Common.Models.Host;
 
 namespace GigaHurtzApi.Services;
 
@@ -10,7 +10,7 @@ public interface IDbService
     /// Attempts to create a host
     /// </summary>
     /// <exception cref="DbException">Thrown if there is some issue adding the host</exception>
-    public Task AddHost(Host host);
+    public Task AddHost(HostModel host);
 
     /// <summary>
     /// Attempts to create a refugee
@@ -22,12 +22,14 @@ public interface IDbService
     /// Gets a host with the given id
     /// </summary>
     /// <returns>The host if found, otherwise null</returns>
-    public Task<Host?> GetHost(string id);
+    public Task<HostModel?> GetHost(string id);
     /// <summary>
     /// Gets a refugee with the given id
     /// </summary>
     /// <returns>The refugee if found, null otherwise</returns>
     public Task<Refugee?> GetRefugee(string id);
+
+    public Task<IImmutableList<HostModel>> GetAllHosts();
 
     /// <summary>Gets the role for a specifc user</summary>
     /// <returns>Either a 0 for a host, 1 for a refugee, or null if the user is not found</returns>

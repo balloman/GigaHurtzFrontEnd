@@ -1,22 +1,24 @@
 @page "/rsignup"
-@inject NavigationManager NavigationManager
+@inject NavigationManager _NavigationManager
+@using GigaHurtz_Frontend.Services
+@inject IApiService ApiService
 
 <h1>Refugee Signup</h1>
 
 <form>
     <div class="mb-3">
         <label for="refugeeName" class="form-label">Name</label>
-        <input @bind="name" type="text" class="form-control" id="refugeeName">
+        <input @bind="name" type="text" class="form-control" id="refugeeName" required>
     </div>
 
     <div class="mb-3">
         <label for="refugeeEmail" class="form-label">Email address</label>
-        <input @bind="email" type="email" class="form-control" id="refugeeEmail">
+        <input @bind="email" type="email" class="form-control" id="refugeeEmail" required>
     </div>
 
     <div class="mb-3">
         <label for="refugeePassword" class="form-label">Password</label>
-        <input @bind="password" type="password" class="form-control" id="refugeePassword">
+        <input @bind="password" type="password" class="form-control" id="refugeePassword" required>
     </div>
 
     <div class="mb-3">
@@ -26,12 +28,12 @@
 
     <div class="mb-3">
         <label for="refugeeAddress" class="form-label">Address</label>
-        <input @bind="address" type="text" class="form-control" id="refugeeAddress">
+        <input @bind="address" type="text" class="form-control" id="refugeeAddress" required>
     </div>
 
     <div class="mb-3">
         <label for="refugeeSize" class="form-label">Group Size</label>
-        <input @bind="groupSize" type="number" min="1" class="form-control" id="refugeeSize">
+        <input @bind="groupSize" type="number" min="1" class="form-control" id="refugeeSize" required>
     </div>
 
     <div class="mb-3">
@@ -40,21 +42,21 @@
     </div>
 
     <div class="form-check form-switch">
-        <input @bind="hasKids" class="form-check-input" type="checkbox" role="switch" id="refugeeKids">
+        <input @bind="hasKids" class="form-check-input" type="checkbox" role="switch" id="refugeeKids" required>
         <label class="form-check-label" for="refugeeKids">Have Kids</label>
     </div>
 
     <label for="refugeeAcceptGender">Gender (Ages 13+):</label>
     <div class="form-check form-check-inline">
-        <input @bind="hasMale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptMale" value="male">
+        <input @bind="hasMale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptMale">
         <label class="form-check-label" for="RefugeeAcceptFemale">Male</label>
     </div>
     <div class="form-check form-check-inline">
-        <input @bind="hasFemale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale" value="female">
+        <input @bind="hasFemale" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale" >
         <label class="form-check-label" for="refugeeAcceptFemale">Female</label>
     </div>
     <div class="form-check form-check-inline">
-        <input @bind="hasBoth" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale" value="female">
+        <input @bind="hasBoth" class="form-check-input" type="radio" name="checkGender" id="refugeeAcceptFemale">
         <label class="form-check-label" for="refugeeAcceptFemale">Mixed Group</label>
     </div>
 

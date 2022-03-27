@@ -1,10 +1,13 @@
 using GigaHurtz.Common.Models;
 
+
 namespace GigaHurtz_Frontend.Services;
 
 public interface IApiService
 {
     public string UserId { get; set; }
+
+    public IEnumerable<string> Languages { get; }
 
     public Task<HostModel> GetHost(string userId);
 
@@ -28,4 +31,5 @@ public interface IApiService
         Host,
         Refugee
     }
+
 }

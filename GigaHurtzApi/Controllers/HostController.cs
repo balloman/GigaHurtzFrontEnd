@@ -1,6 +1,6 @@
-﻿using GigaHurtzApi.Services;
+﻿using GigaHurtz.Common.Models;
+using GigaHurtzApi.Services;
 using Microsoft.AspNetCore.Mvc;
-using Host = GigaHurtz.Common.Models.Host;
 
 namespace GigaHurtzApi.Controllers;
 
@@ -16,7 +16,7 @@ public class HostController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<Host>> GetHostById(string id)
+    public async Task<ActionResult<HostModel>> GetHostById(string id)
     {
         var host = await _dbService.GetHost(id);
         if (host is null) return NotFound();
@@ -24,7 +24,7 @@ public class HostController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateHost(Host host)
+    public async Task<IActionResult> CreateHost(HostModel host)
     {
         try
         {
@@ -34,5 +34,11 @@ public class HostController : ControllerBase
         {
             return NotFound(e.Message);
         }
+    }
+
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<HostModel>>> GetAllHosts()
+    {
+        return Ok(await _dbService.GetAllHosts());
     }
 }

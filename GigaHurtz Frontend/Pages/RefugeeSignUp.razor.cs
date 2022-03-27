@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Components;
-using GigaHurtz_Frontend.Services;
-using GigaHurtz.Common.Models;
+﻿using GigaHurtz.Common.Models;
 
-public partial class RefugeeSignUp {
+namespace GigaHurtz_Frontend.Pages;
+public partial class RefugeeSignUp
+{
 
     private String name;
     private String email;
@@ -17,40 +17,38 @@ public partial class RefugeeSignUp {
     private bool hasFemale;
     private bool hasBoth;
     private bool activelyLooking;
+    
 
-
-
-
-    private void GoToRPage()
+    private async Task GoToRPage()
     {
-        NavigationManager.NavigateTo("rpage");
+        await SubmitHostInfo();
+        _NavigationManager.NavigateTo("rpage");
     }
 
-    private String converToString(bool hasMale, bool hasFemale, bool hasBoth)
+    private String convertToString(bool hasMale, bool hasFemale, bool hasBoth)
     {
         if (hasMale)
             return "Male";
         if (hasFemale)
             return "Female";
-        if (hasBoth)
-            return "Both";
-
+        return "Both";
     }
 
     public async Task SubmitHostInfo()
     {
-        var refugeeId = await apiService.Register(email, password);
+        var refugeeId = await ApiService.Register(email, password);
         var refugeeObject = new Refugee(
-            Id: hostId,
+            Id: refugeeId,
             Name: name,
             Email: email,
             Phone: phoneNumber,
-            Location: location,
+            Location: address,
             Languages: languages,
-            Kids: hasKids,
+            HasKids: hasKids,
             HouseholdSize: groupSize,
-            GenderPref: convertToString(hasMale, hasFemale, hasBoth),
+            Gender: convertToString(hasMale, hasFemale, hasBoth),
             ActivelyLooking: activelyLooking
         );
-        await apiService.AddHost(hostObject);
+        await ApiService.AddRefugee(refugeeObject);
     }
+}

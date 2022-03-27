@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddSingleton<IDbService, FirebaseService>();
+builder.Services.AddSingleton<CompatibilityService>();
 builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policyBuilder =>

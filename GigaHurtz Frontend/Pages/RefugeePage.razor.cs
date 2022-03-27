@@ -5,11 +5,20 @@ namespace GigaHurtz_Frontend.Pages;
 
 public partial class RefugeePage
 {
-    private Refugee? refugee;
+    private Refugee refugee = Refugee.Empty;
 
-    public RefugeePage(IApiService api)
+    public RefugeePage()
     {
-        var id = api.UserId;
-        if (id is not null) refugee = api.GetRefugee(id).Result;
+    }
+
+    public async Task Refresh()
+    {
+        refugee = await ApiService.GetRefugee(ApiService.UserId);
+    }
+
+    /// <inheritdoc />
+    protected override async Task OnInitializedAsync()
+    {
+        await Refresh();
     }
 }

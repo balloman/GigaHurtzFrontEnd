@@ -20,11 +20,11 @@ public class CompatibilityService
     public async Task<IImmutableList<Compatibility>> GetCompatForUser(string uid)
     {
         var refugee = await _dbService.GetRefugee(uid);
-
-        var score = 0.0;
-
-        score += ( 25 - (5 *  host (refugee.HouseholdSize)) )     /// # of people
-
-        return null;
+        throw new NotImplementedException();
+        // var score = 0.0;
+        //
+        // score += ( 25 - (5 *  host (refugee.HouseholdSize)) )     /// # of people
+        //
+        // return null;
     }
 }

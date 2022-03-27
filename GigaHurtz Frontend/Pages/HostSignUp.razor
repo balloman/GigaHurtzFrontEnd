@@ -33,13 +33,13 @@
         <label for="availableRooms" class="form-label">Number of Available Rooms</label>
         <input @bind="availableRooms" type="number" min="0" class="form-control" id="roomCount">
     </div>
-
+    <!-- Max # of Tenants -->
     <div class="mb-3">
         <label for="hostMaxTenants" class="form-label">Max Number of Tenants</label>
         <input @bind="maxTenants" type="number" min="0" class="form-control" id="hostMaxTenants" required>
     </div>
 
-    <Select TValue="string" Multiple>
+    <Select TValue="string">
         @foreach (var language in ApiService.Languages)
         {
             <SelectItem>@language</SelectItem>
@@ -63,7 +63,6 @@
         <label class="form-check-label" for="hostAcceptMale">Male</label>
     </div>
     <div class="form-check form-check-inline" id="hostAcceptGender">
-        <!--  -->
         <input @bind="femalePref" class="form-check-input" type="checkbox" id="hostAcceptFemale" value="female">
         <label class="form-check-label" for="hostAcceptFemale">Female</label>
     </div>

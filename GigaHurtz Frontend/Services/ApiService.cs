@@ -1,4 +1,5 @@
-﻿using GigaHurtz.Common.Models;
+﻿using System.Globalization;
+using GigaHurtz.Common.Models;
 using Microsoft.JSInterop;
 
 namespace GigaHurtz_Frontend.Services;
@@ -24,8 +25,15 @@ public class ApiService : IApiService
     {
         get
         {
-            using var tempClient = new HttpClient();
-
+            var info = CultureInfo.GetCultures(CultureTypes.NeutralCultures);
+            var names =  info.Select(cultureInfo =>
+            {
+                var nativeName = cultureInfo.NativeName;
+                return nativeName;
+            }).Where(s => !s.Contains("Invariant")).ToList();
+            names.Remove("English");
+            names.Insert(0, "English");
+            return names;
         }
     }
 
@@ -62,7 +70,7 @@ public class ApiService : IApiService
 
     public async Task<string> Register(string email, string password)
     {
-        var uid = await _runtime.InvokeAsync<string>("FirebaseFunctions.login", new object?[] { email, password });
+        var uid = await _runtime.InvokeAsync<string>("FirebaseFunctions.signup", new object?[] { email, password });
         return uid;
     }
 

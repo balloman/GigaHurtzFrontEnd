@@ -1,25 +1,30 @@
 ﻿using System.Globalization;
+using Firebase.Auth;
 using GigaHurtz.Common.Models;
-using Microsoft.JSInterop;
+using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace GigaHurtz_Frontend.Services;
 
 public class ApiService : IApiService
 {
     private readonly HttpClient _client;
-    private readonly IJSRuntime _runtime;
+    private readonly FirebaseAuthProvider _auth;
+    private readonly ProtectedSessionStorage _sessionStorage;
     private const string BASE_ADDRESS = "https://gigahurtz-api.herokuapp.com";
+    private const string API_KEY = "AIzaSyBXamTHEreIY_sEVLmiGhoO0wARr2G4W8g";
 
-    public string? UserId { get; set; }
-
-    public ApiService(IJSRuntime jsRuntime)
+    public ApiService(ProtectedSessionStorage sessionStorage)
     {
-        _runtime = jsRuntime;
+        _auth = new FirebaseAuthProvider(new FirebaseConfig(API_KEY));
+        _sessionStorage = sessionStorage;
         _client = new HttpClient
         {
             BaseAddress = new Uri(BASE_ADDRESS)
         };
     }
+
+    /// <inheritdoc/>
+    public string? UserId { get; set; }
 
     public IEnumerable<string> Languages
     {
@@ -64,14 +69,25 @@ public class ApiService : IApiService
 
     public async Task<string?> Login(string email, string password)
     {
-        var uid = await _runtime.InvokeAsync<string>("FirebaseFunctions.login", new object?[] {email, password});
+        string? uid = null;
+        try
+        {
+            var authResult = await _auth.SignInWithEmailAndPasswordAsync(email, password);
+            uid = authResult.User.LocalId;
+        } catch (FirebaseAuthException)
+        {
+            return uid;
+        }
+
+        UserId = uid;
         return uid;
     }
 
     public async Task<string> Register(string email, string password)
     {
-        var uid = await _runtime.InvokeAsync<string>("FirebaseFunctions.signup", new object?[] { email, password });
-        return uid;
+        var auth = await _auth.CreateUserWithEmailAndPasswordAsync(email, password);
+        UserId = auth.User.LocalId;
+        return UserId;
     }
 
     public async Task AddHost(HostModel host)

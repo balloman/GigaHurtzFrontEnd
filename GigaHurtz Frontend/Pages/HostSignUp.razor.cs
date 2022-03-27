@@ -1,27 +1,26 @@
-﻿using Microsoft.AspNetCore.Components;
-using GigaHurtz_Frontend.Services;
-using GigaHurtz.Common.Models;
+﻿using GigaHurtz.Common.Models;
 
 namespace GigaHurtz_Frontend.Pages;
 public partial class HostSignUp
 {
-    private string name;
-    private string email;
-    private string password;
-    private string phoneNumber;
-    private string address;
-    private int maxTenants;
-    private string[] languages;
-    private bool hostKids;
-    private bool providesFood;
-    private bool malePref;
-    private bool femalePref;
-    private string genderPref;
+    private string Name { get; set; } = string.Empty;
+    private string Email { get; set; } = string.Empty;
+    private string Password { get; set; } = string.Empty;
+    private string PhoneNumber { get; set; } = string.Empty;
+    private string Address { get; set; } = string.Empty;
+    private int MaxTenants { get; set; }
+    private string[] Languages { get; } = Array.Empty<string>();
+    private bool HostKids { get; set; }
+    private bool ProvidesFood { get; set; }
+    private bool MalePref { get; set; }
+    private bool FemalePref { get; set; }
 
-    private int availableRooms;
-    private string imageUrl;
+    private int AvailableRooms { get; set; }
 
-    public async Task HostPage()
+    private string ImageUrl { get; } =
+        "https://image.shutterstock.com/image-vector/no-house-icon-illustration-isolated-260nw-637489690.jpg";
+
+    private async Task HostPage()
     {
         await SubmitHostInfo();
         NavigationManager.NavigateTo("hpage");
@@ -38,22 +37,22 @@ public partial class HostSignUp
         return new[] {"Female", "Male"};
     }
 
-    public async Task SubmitHostInfo()
+    private async Task SubmitHostInfo()
     {
-        var hostId = await ApiService.Register(email, password);
+        var hostId = await ApiService.Register(Email, Password);
         var hostObject = new HostModel(
             Id: hostId,
-            Name: name,
-            Email: email,
-            Phone: phoneNumber,
-            Address: address,
-            MaxTenants: maxTenants,
-            Languages: languages,
-            Kids: hostKids,
-            Cooks: providesFood,
-            GenderPref: ConvertToString(malePref, femalePref),
-            AvailableRooms: availableRooms,
-            ImageUrl: imageUrl
+            Name,
+            Email: Email,
+            Phone: PhoneNumber,
+            Address: Address,
+            MaxTenants: MaxTenants,
+            Languages: Languages,
+            Kids: HostKids,
+            Cooks: ProvidesFood,
+            GenderPref: ConvertToString(MalePref, FemalePref),
+            AvailableRooms: AvailableRooms,
+            ImageUrl: ImageUrl
         );
         await ApiService.AddHost(hostObject);
         NavigationManager.NavigateTo("login");

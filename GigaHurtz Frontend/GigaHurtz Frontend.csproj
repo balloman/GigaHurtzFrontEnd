@@ -16,6 +16,7 @@
   <ItemGroup>
     <PackageReference Include="Blazorise.Bootstrap" Version="1.0.1" />
     <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.0.1" />
+    <PackageReference Include="FirebaseAuthentication.net" Version="3.7.2"/>
   </ItemGroup>
 
   <ItemGroup>

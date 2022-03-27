@@ -31,7 +31,7 @@ public interface IDbService
 
     public Task<IImmutableList<HostModel>> GetAllHosts();
 
-    /// <summary>Gets the role for a specifc user</summary>
+    /// <summary>Gets the role for a specific user</summary>
     /// <returns>Either a 0 for a host, 1 for a refugee, or null if the user is not found</returns>
     public Task<int?> GetRole(string id);
 

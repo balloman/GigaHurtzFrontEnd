@@ -1,11 +1,10 @@
 using GigaHurtz.Common.Models;
 
-
 namespace GigaHurtz_Frontend.Services;
 
 public interface IApiService
 {
-    public string UserId { get; set; }
+    public string? UserId { get; set; }
 
     public IEnumerable<string> Languages { get; }
 

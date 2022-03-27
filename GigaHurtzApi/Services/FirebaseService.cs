@@ -49,6 +49,7 @@ public class FirebaseService : IDbService
     public async Task<HostModel?> GetHost(string id)
     {
         var hostDict = await GetUserDocument(id);
+        var host = await UserCollection.Document(id).GetSnapshotAsync();
         return hostDict is null ? null : HostFromDict(id, hostDict);
     }
 
@@ -141,6 +142,7 @@ public class FirebaseService : IDbService
 
     private static Dictionary<string, object> ToHostDict(HostModel host)
     {
+        
         var dataDict = new Dictionary<string, object>
         {
             { "address", host.Address },
@@ -183,5 +185,7 @@ public class FirebaseService : IDbService
             { "data", dataDict }
         };
     }
+    
+    
 
 }

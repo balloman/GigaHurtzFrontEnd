@@ -7,8 +7,10 @@ public partial class HostPage {
 
     private HostModel host;
 
-    public HostPage(IApiService api){
-        host = api.GetHost(api.UserId).Result;
+    public HostPage(IApiService api)
+    {
+        var hostId = api.UserId;
+        if (hostId is not null) host = api.GetHost(hostId).Result;
     }
 
 }

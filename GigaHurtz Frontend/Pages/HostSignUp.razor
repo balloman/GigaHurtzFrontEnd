@@ -1,42 +1,42 @@
 @page "/hsignup"
-@inject NavigationManager NavigationManager
 @using GigaHurtz_Frontend.Services
+@inject NavigationManager NavigationManager
 @inject IApiService ApiService
 
 <form>
     <div class="mb-3">
         <label for="hostName" class="form-label">Name</label>
-        <input @bind="name" type="text" class="form-control" id="hostName" required>
+        <input @bind="Name" type="text" class="form-control" id="hostName" required>
     </div>
 
     <div class="mb-3">
         <label for="hostEmail" class="form-label">Email address</label>
-        <input @bind="email" type="email" class="form-control" id="hostEmail" required>
+        <input @bind="Email" type="email" class="form-control" id="hostEmail" required>
     </div>
 
     <div class="mb-3">
         <label for="hostPassword" class="form-label">Password</label>
-        <input @bind="password" type="password" class="form-control" id="hostPassword" required>
+        <input @bind="Password" type="password" class="form-control" id="hostPassword" required>
     </div>
 
     <div class="mb-3">
         <label for="hostPhoneNumber" class="form-label">Phone Number</label>
-        <input @bind="phoneNumber" type="text" class="form-control" id="hostPhoneNumber">
+        <input @bind="PhoneNumber" type="text" class="form-control" id="hostPhoneNumber">
     </div>
 
     <div class="mb-3">
         <label for="hostAddress" class="form-label">Address</label>
-        <input @bind="address" type="text" class="form-control" id="hostAddress" required>
+        <input @bind="Address" type="text" class="form-control" id="hostAddress" required>
     </div>
 
     <div class="mb-3">
         <label for="availableRooms" class="form-label">Number of Available Rooms</label>
-        <input @bind="availableRooms" type="number" min="0" class="form-control" id="roomCount">
+        <input @bind="AvailableRooms" type="number" min="0" class="form-control" id="roomCount">
     </div>
     <!-- Max # of Tenants -->
     <div class="mb-3">
         <label for="hostMaxTenants" class="form-label">Max Number of Tenants</label>
-        <input @bind="maxTenants" type="number" min="0" class="form-control" id="hostMaxTenants" required>
+        <input @bind="MaxTenants" type="number" min="0" class="form-control" id="hostMaxTenants" required>
     </div>
 
     <Select TValue="string">
@@ -48,22 +48,22 @@
 
 
     <div class="form-check form-switch">
-        <input @bind="hostKids" class="form-check-input" type="checkbox" role="switch" id="hostKids">
+        <input @bind="HostKids" class="form-check-input" type="checkbox" role="switch" id="hostKids">
         <label class="form-check-label" for="hostKids">Accepting Kids</label>
     </div>
 
     <div class="form-check form-switch">
-        <input @bind="providesFood" class="form-check-input" type="checkbox" role="switch" id="hostFood">
+        <input @bind="ProvidesFood" class="form-check-input" type="checkbox" role="switch" id="hostFood">
         <label class="form-check-label" for="hostFood">Providing Food</label>
     </div>
 
     <label for="hostAcceptGender">Gender Preference:</label>
     <div class="form-check form-check-inline" id="hostAcceptGender">
-        <input @bind="malePref" class="form-check-input" type="checkbox" id="hostAcceptMale" value="male">
+        <input @bind="MalePref" class="form-check-input" type="checkbox" id="hostAcceptMale" value="male">
         <label class="form-check-label" for="hostAcceptMale">Male</label>
     </div>
     <div class="form-check form-check-inline" id="hostAcceptGender">
-        <input @bind="femalePref" class="form-check-input" type="checkbox" id="hostAcceptFemale" value="female">
+        <input @bind="FemalePref" class="form-check-input" type="checkbox" id="hostAcceptFemale" value="female">
         <label class="form-check-label" for="hostAcceptFemale">Female</label>
     </div>
 

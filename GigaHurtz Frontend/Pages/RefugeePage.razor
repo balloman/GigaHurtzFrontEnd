@@ -25,10 +25,10 @@
         </button>
         <h3 style="display: inline">Available Hosts</h3>
     </li>
-    @foreach (var compatiblities in ApiService.GetCompatibility(refugee).Result)
+    @foreach (var compatibility in compatibilities)
     {
-        var host = ApiService.GetHost(compatiblities.HostId).Result;
-        var score = compatiblities.CompatibilityScore;
+        var host = compatibility.Host;
+        var score = compatibility.CompatScore;
 
         <li class="list-group-item borderless">
             <div class="card mb-3" style="max-width: 540;">
@@ -43,7 +43,7 @@
                             <p class="card-text"># of Rooms: @host.AvailableRooms Max # of Tenants: @host.MaxTenants Languages: @string.Join(", ", host.Languages)</p>
                             <p class="card-text">Gender Preference: @string.Join(", ", host.GenderPref) Have Kids: @host.Kids Provide Food: @host.Cooks</p>
                             <p class="card-text">Compatability Score: @score</p>
-                            <button type="button" class="btn btn-primary">Make Request</button>
+                            <button type="button" id="@host.Id" @onclick="() => ButtonClick(host)" class="btn btn-primary">Make Request</button>
                         </div>
                     </div>
                 </div>

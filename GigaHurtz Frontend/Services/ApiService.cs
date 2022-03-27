@@ -135,6 +135,11 @@ public class ApiService : IApiService
     }
 
     /// <inheritdoc/>
-    public async Task<IEnumerable<Compatibility>> GetCompatibility(Refugee refugee) =>
-        throw new NotImplementedException();
+    public async Task<IEnumerable<Compatibility>> GetCompatibility(Refugee refugee)
+    {
+        if (string.IsNullOrWhiteSpace(refugee.Id)) return Array.Empty<Compatibility>();
+        var compatiblities = await _client.GetFromJsonAsync<IEnumerable<Compatibility>>($"compatibility/{refugee.Id}");
+        if (compatiblities is null) throw new HttpRequestException("There was an error getting the compatibilities from the database");
+        return compatiblities;
+    }
 }

@@ -31,16 +31,15 @@
         </button>
         <h3 style="display: inline">Pending Requests</h3>
     </li>
-    @foreach (var request in host.Requests)
+    @foreach (var request in requests)
     {
-        var refugee = ApiService.GetRefugee(request).Result;
 
         <li class="list-group-item">
             <div class="card mb-3" style="max-width: 780;">
                 <div class="card-body">
-                    <h5 class="card-title">@refugee.Name</h5>
-                    <p class="card-text">Group Size: @refugee.HouseholdSize Gender(s): @refugee.Gender</p>
-                    <p class="card-text">Languages: @string.Join(", ", refugee.Languages) Have Kids: @refugee.HasKids</p>
+                    <h5 class="card-title">@request.Name</h5>
+                    <p class="card-text">Group Size: @request.HouseholdSize Gender(s): @request.Gender</p>
+                    <p class="card-text">Languages: @string.Join(", ", request.Languages) Have Kids: @request.HasKids</p>
                 </div>
             </div>
         </li>

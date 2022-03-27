@@ -28,7 +28,7 @@
     @foreach (var compatiblities in ApiService.GetCompatibility(refugee).Result)
     {
         var host = ApiService.GetHost(compatiblities.HostId).Result;
-        var score = compatiblities.compatabilityScore;
+        var score = compatiblities.CompatabilityScore;
 
         <li class="list-group-item borderless">
             <div class="card mb-3" style="max-width: 540;">

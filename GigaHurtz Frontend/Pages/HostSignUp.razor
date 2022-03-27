@@ -1,70 +1,72 @@
 @page "/hsignup"
 @inject NavigationManager NavigationManager
+@using GigaHurtz_Frontend.Services
+@inject IApiService ApiService
 
 <form>
     <div class="mb-3">
         <label for="hostName" class="form-label">Name</label>
-        <input type="text" class="form-control" id="hostName">
+        <input @bind="name" type="text" class="form-control" id="hostName" required>
     </div>
 
     <div class="mb-3">
         <label for="hostEmail" class="form-label">Email address</label>
-        <input type="email"class="form-control" id="hostEmail">
+        <input @bind="email" type="email" class="form-control" id="hostEmail" required>
     </div>
 
     <div class="mb-3">
         <label for="hostPassword" class="form-label">Password</label>
-        <input type="password" class="form-control" id="hostPassword">
+        <input @bind="password" type="password" class="form-control" id="hostPassword" required>
     </div>
 
     <div class="mb-3">
         <label for="hostPhoneNumber" class="form-label">Phone Number</label>
-        <input type="text" class="form-control" id="hostPhoneNumber">
+        <input @bind="phoneNumber" type="text" class="form-control" id="hostPhoneNumber">
     </div>
 
     <div class="mb-3">
         <label for="hostAddress" class="form-label">Address</label>
-        <input type="text" class="form-control" id="hostAddress">
+        <input @bind="address" type="text" class="form-control" id="hostAddress">
     </div>
 
     <div class="mb-3">
-        <label for="roomCount" class="form-label">Number of Available Rooms</label>
-        <input type="number" min="0" class="form-control" id="roomCount">
+        <label for="availableRooms" class="form-label">Number of Available Rooms</label>
+        <input @bind="availableRooms" type="number" min="0" class="form-control" id="roomCount">
     </div>
 
     <div class="mb-3">
         <label for="hostMaxTenants" class="form-label">Max Number of Tenants</label>
-        <input type="number" min="0" class="form-control" id="hostMaxTenants">
+        <input @bind="maxTenants" type="number" min="0" class="form-control" id="hostMaxTenants">
     </div>
 
     <div class="mb-3">
         <label for="hostLanguages" class="form-label">Language(s) Spoken</label>
-        <input type="text" class="form-control" id="hostLanguages"> <!--CHANGE INPUT TYPE TO SELECT-->
+        <input @bind="languages" type="text" class="form-control" id="hostLanguages"> <!--CHANGE INPUT TYPE TO SELECT-->
     </div>
 
 
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="hostKids">
+        <input @bind="hostKids" class="form-check-input" type="checkbox" role="switch" id="hostKids">
         <label class="form-check-label" for="hostKids">Accepting Kids</label>
     </div>
 
     <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="hostFood">
+        <input @bind="provideFood" class="form-check-input" type="checkbox" role="switch" id="hostFood">
         <label class="form-check-label" for="hostFood">Providing Food</label>
     </div>
 
     <label for="hostAcceptGender">Gender Preference:</label>
     <div class="form-check form-check-inline" id="hostAcceptGender">
-        <input class="form-check-input" type="checkbox" id="hostAcceptMale" value="male">
+        <input @bind="malePref" class="form-check-input" type="checkbox" id="hostAcceptMale" value="male">
         <label class="form-check-label" for="hostAcceptMale">Male</label>
     </div>
     <div class="form-check form-check-inline" id="hostAcceptGender">
-        <input class="form-check-input" type="checkbox" id="hostAcceptFemale" value="female">
+        <input @bind="femalePref" class="form-check-input" type="checkbox" id="hostAcceptFemale" value="female">
         <label class="form-check-label" for="hostAcceptFemale">Female</label>
     </div>
 
     <br>
-    <button type="submit" @onclick="GoToHPage" class="btn btn-primary">Submit</button>
+    <button @onclick="GoToHPage" type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 @code {

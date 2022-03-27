@@ -1,10 +1,6 @@
-﻿/*
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Rendering;
+﻿using Microsoft.AspNetCore.Components;
+using GigaHurtz_Frontend.Services;
+using GigaHurtz.Common.Models;
 
 public partial class HostSignUp
 {
@@ -15,36 +11,62 @@ public partial class HostSignUp
     private string address;
     private int MaxTenants;
     private string[] languages;
-    private bool hasKids;
-    private bool hasFood;
-    private bool[] genderPref;
+    private bool hostKids;
+    private bool providesFood;
+    private bool malePref;
+    private bool femalePref;
+    private string genderPref;
 
+    private int availableRooms;
+    private string imageUrl;
+    private readonly IApiService apiService;
+    private readonly NavigationManager NavigationManager;
+
+
+    public HostSignUp(IApiService apiService, NavigationManager navigationManager) 
+    {
+        this.apiService = apiService;
+        NavigationManager = navigationManager;
+    }
 
     public void HostPage()
     {
         NavigationManager.NavigateTo("hpage");
     }
 
-    // public async Task SubmitHostInfo()
-    public void SubmitHostInfo()
+    private String convertToString(bool malePref, bool femalePref)
     {
-        // Pull User data for the input email and password
-        var uid = await JSRuntime.InvokeAsync<string>("FirebaseFunctions.login", new[] { Email, Password });
+        if (malePref && femalePref)
+            return "Mixed";
+        else if (malePref)
+            return "Male";
+        else if (femalePref)
+            return "Female";
+        else
+            return "None";
+    }
 
-        // Check if the email and password are valid
-        if (string.IsNullOrEmpty(uid))
-        {
-            Console.WriteLine("Invalid Login...");
-            error = "Invalid Login...";
-            return;
-        }
-
-        // Add the User data into the database
-        await Handler.CreateUser(uid, new User(Email, Name, new List<string>()));
+    public async Task SubmitHostInfo()
+    {
+        var hostId = await apiService.Register(email, password);
+        var hostObject = new HostModel(
+            Id: hostId,
+            Name: name,
+            Email: email,
+            Phone: phoneNumber,
+            Address: address,
+            MaxTenants: MaxTenants,
+            Languages: languages,
+            Kids: hasKids,
+            Cooks: hasFood,
+            GenderPref: convertToString(malePref, femalePref),
+            AvailableRooms: availableRooms,
+            ImageUrl: imageUrl
+        );
+        await apiService.AddHost(hostObject);
         NavigationManager.NavigateTo("login");
     }
 }
-*/
 
 
 

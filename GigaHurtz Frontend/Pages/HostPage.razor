@@ -31,16 +31,18 @@
         </button>
         <h3 style="display: inline">Pending Requests</h3>
     </li>
-    <!-- Row Format Begins -->
-    <li class="list-group-item">
-        <div class="card mb-3" style="max-width: 780;">
-            <!-- was 540 -->
-            <div class="card-body">
-                <h5 class="card-title">Name</h5>
-                <p class="card-text">Group Size: Gender(s): [Male,Female,Both] </p>
-                <p class="card-text">Languages: ... #Havekids #</p>
-            </div>
-        </div>
-    </li>
-    <!-- Row Format Ends -->
+    @foreach (var requests in ApiService)
+    {
+        var refugee = ApiService.GetRefugee(compatabilities.RefugeeId).Result;
+
+            <li class="list-group-item">
+                <div class="card mb-3" style="max-width: 780;">
+                    <div class="card-body">
+                        <h5 class="card-title">Name</h5>
+                        <p class="card-text">Group Size: Gender(s): [Male,Female,Both] </p>
+                        <p class="card-text">Languages: ... #Havekids #</p>
+                    </div>
+                </div>
+            </li>
+    }
 </ul>

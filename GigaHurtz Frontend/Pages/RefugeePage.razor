@@ -28,6 +28,8 @@
     @foreach (var compatiblities in ApiService.GetCompatibility(refugee).Result)
     {
         var host = ApiService.GetHost(compatiblities.HostId).Result;
+        var score = compatiblities.compatabilityScore;
+
         <li class="list-group-item borderless">
             <div class="card mb-3" style="max-width: 540;">
                 <!-- was 540 -->
@@ -37,9 +39,10 @@
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
-                            <h5 class="card-title">Name</h5>
-                            <p class="card-text"># of Rooms: Max # of Tenants: Languages: </p>
-                            <p class="card-text">Gender Preference: [Male,Female,Both] #Havekids #ProvideFood</p>
+                            <h5 class="card-title">@host.Name</h5>
+                            <p class="card-text"># of Rooms: @host.AvailableRooms Max # of Tenants: @host.MaxTenants Languages: @string.Join(", ", host.Languages)</p>
+                            <p class="card-text">Gender Preference: @string.Join(", ", host.GenderPref) Have Kids: @host.Kids Provide Food: @host.Cooks</p>
+                            <p class="card-text">Compatability Score: @score</p>
                             <button type="button" class="btn btn-primary">Make Request</button>
                         </div>
                     </div>
@@ -47,47 +50,4 @@
             </div>
         </li>
     }
-    <!-- Row Format Begins -->
-    
-    @* <!-- Row Format Ends --> *@
-    @* <!-- Row Format Begins --> *@
-    @* <li class="list-group-item"> *@
-    @*     <div class="card mb-3" style="max-width: 540;"> *@
-    @*         <!-- was 540 --> *@
-    @*         <div class="row g-0"> *@
-    @*             <div class="col-md-4"> *@
-    @*                 <img src="https://media.istockphoto.com/photos/beautiful-craftsman-home-exterior-on-bright-sunny-day-with-green-and-picture-id1222625117?s=612x612" class="img-fluid rounded-start"> *@
-    @*             </div> *@
-    @*             <div class="col-md-8"> *@
-    @*                 <div class="card-body"> *@
-    @*                     <h5 class="card-title">Name</h5> *@
-    @*                     <p class="card-text"># of Rooms: Max # of Tenants: Languages: </p> *@
-    @*                     <p class="card-text">Gender Preference: [Male,Female,Both] #Havekids #ProvideFood</p> *@
-    @*                     <button type="button" class="btn btn-primary">Make Request</button> *@
-    @*                 </div> *@
-    @*             </div> *@
-    @*         </div> *@
-    @*     </div> *@
-    @* </li> *@
-    @* <!-- Row Format Ends --> *@
-    @* <!-- Row Format Begins --> *@
-    @* <li class="list-group-item"> *@
-    @*     <div class="card mb-3" style="max-width: 540;"> *@
-    @*         <!-- was 540 --> *@
-    @*         <div class="row g-0"> *@
-    @*             <div class="col-md-4"> *@
-    @*                 <img src="https://media.istockphoto.com/photos/beautiful-craftsman-home-exterior-on-bright-sunny-day-with-green-and-picture-id1222625117?s=612x612" class="img-fluid rounded-start"> *@
-    @*             </div> *@
-    @*             <div class="col-md-8"> *@
-    @*                 <div class="card-body"> *@
-    @*                     <h5 class="card-title">Name</h5> *@
-    @*                     <p class="card-text"># of Rooms: Max # of Tenants: Languages: </p> *@
-    @*                     <p class="card-text">Gender Preference: [Male,Female,Both] #Havekids #ProvideFood</p> *@
-    @*                     <button type="button" class="btn btn-primary">Make Request</button> *@
-    @*                 </div> *@
-    @*             </div> *@
-    @*         </div> *@
-    @*     </div> *@
-    @* </li> *@
-    @* <!-- Row Format Ends --> *@
 </ul>
